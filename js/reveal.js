@@ -1217,8 +1217,11 @@
 		if( data.backgroundColor ) element.style.backgroundColor = data.backgroundColor;
 		if( data.backgroundTransition ) element.setAttribute( 'data-background-transition', data.backgroundTransition );
 
+<<<<<<< HEAD
 		if( slide.hasAttribute( 'data-preload' ) ) element.setAttribute( 'data-preload', '' );
 
+=======
+>>>>>>> master
 		// Background image options are set on the content wrapper
 		if( data.backgroundSize ) contentElement.style.backgroundSize = data.backgroundSize;
 		if( data.backgroundRepeat ) contentElement.style.backgroundRepeat = data.backgroundRepeat;
@@ -1278,11 +1281,15 @@
 
 					// Check if the requested method can be found
 					if( data.method && typeof Reveal[data.method] === 'function' ) {
+<<<<<<< HEAD
 						var result = Reveal[data.method].apply( Reveal, data.args );
 
 						// Dispatch a postMessage event with the returned value from
 						// our method invocation for getter functions
 						dispatchPostMessage( 'callback', { method: data.method, result: result } );
+=======
+						Reveal[data.method].apply( Reveal, data.args );
+>>>>>>> master
 					}
 				}
 			}, false );
@@ -1453,8 +1460,13 @@
 			keyboardShortcuts['&#8595;  ,  J'] = 'Navigate down';
 		}
 
+<<<<<<< HEAD
 		keyboardShortcuts['Home  ,  Shift &#8592;']        = 'First slide';
 		keyboardShortcuts['End  ,  Shift &#8594;']         = 'Last slide';
+=======
+		keyboardShortcuts['Home  ,  &#8984;/CTRL &#8592;'] = 'First slide';
+		keyboardShortcuts['End  ,  &#8984;/CTRL &#8594;']  = 'Last slide';
+>>>>>>> master
 		keyboardShortcuts['B  ,  .']                       = 'Pause';
 		keyboardShortcuts['F']                             = 'Fullscreen';
 		keyboardShortcuts['ESC, O']                        = 'Slide overview';
@@ -1987,6 +1999,7 @@
 
 		// If we're in an iframe, post each reveal.js event to the
 		// parent window. Used by the notes plugin
+<<<<<<< HEAD
 		dispatchPostMessage( type );
 
 	}
@@ -2006,6 +2019,10 @@
 			extend( message, data );
 
 			window.parent.postMessage( JSON.stringify( message ), '*' );
+=======
+		if( config.postMessageEvents && window.parent !== window.self ) {
+			window.parent.postMessage( JSON.stringify({ namespace: 'reveal', eventName: type, state: getState() }), '*' );
+>>>>>>> master
 		}
 
 	}
@@ -2266,12 +2283,19 @@
 					transformSlides( { layout: '' } );
 				}
 				else {
+<<<<<<< HEAD
 					// Zoom Scaling
 					// Content remains crisp no matter how much we scale. Side
 					// effects are minor differences in text layout and iframe
 					// viewports changing size. A 200x200 iframe viewport in a
 					// 2x zoomed presentation ends up having a 400x400 viewport.
 					if( scale > 1 && features.zoom && window.devicePixelRatio < 2 ) {
+=======
+					// Prefer zoom for scaling up so that content remains crisp.
+					// Don't use zoom to scale down since that can lead to shifts
+					// in text layout/line breaks.
+					if( scale > 1 && features.zoom ) {
+>>>>>>> master
 						dom.slides.style.zoom = scale;
 						dom.slides.style.left = '';
 						dom.slides.style.top = '';
@@ -2279,10 +2303,14 @@
 						dom.slides.style.right = '';
 						transformSlides( { layout: '' } );
 					}
+<<<<<<< HEAD
 					// Transform Scaling
 					// Content layout remains the exact same when scaled up.
 					// Side effect is content becoming blurred, especially with
 					// high scale values on ldpi screens.
+=======
+					// Apply scale transform as a fallback
+>>>>>>> master
 					else {
 						dom.slides.style.zoom = '';
 						dom.slides.style.left = '50%';
@@ -3067,11 +3095,19 @@
 		syncBackground( slide );
 		syncFragments( slide );
 
+<<<<<<< HEAD
 		loadSlide( slide );
 
 		updateBackground();
 		updateNotes();
 
+=======
+		updateBackground();
+		updateNotes();
+
+		loadSlide( slide );
+
+>>>>>>> master
 	}
 
 	/**
@@ -3337,7 +3373,11 @@
 			}
 
 			// Flag if there are ANY vertical slides, anywhere in the deck
+<<<<<<< HEAD
 			if( hasVerticalSlides() ) {
+=======
+			if( dom.wrapper.querySelectorAll( '.slides>section>section' ).length ) {
+>>>>>>> master
 				dom.wrapper.classList.add( 'has-vertical-slides' );
 			}
 			else {
@@ -3345,7 +3385,11 @@
 			}
 
 			// Flag if there are ANY horizontal slides, anywhere in the deck
+<<<<<<< HEAD
 			if( hasHorizontalSlides() ) {
+=======
+			if( dom.wrapper.querySelectorAll( '.slides>section' ).length > 1 ) {
+>>>>>>> master
 				dom.wrapper.classList.add( 'has-horizontal-slides' );
 			}
 			else {
@@ -3627,7 +3671,11 @@
 		// Stop content inside of previous backgrounds
 		if( previousBackground ) {
 
+<<<<<<< HEAD
 			stopEmbeddedContent( previousBackground, { unloadIframes: !shouldPreload( previousBackground ) } );
+=======
+			stopEmbeddedContent( previousBackground );
+>>>>>>> master
 
 		}
 
@@ -3806,7 +3854,10 @@
 			background.style.display = 'block';
 
 			var backgroundContent = slide.slideBackgroundContentElement;
+<<<<<<< HEAD
 			var backgroundIframe = slide.getAttribute( 'data-background-iframe' );
+=======
+>>>>>>> master
 
 			// If the background contains media, load it
 			if( background.hasAttribute( 'data-loaded' ) === false ) {
@@ -3815,7 +3866,12 @@
 				var backgroundImage = slide.getAttribute( 'data-background-image' ),
 					backgroundVideo = slide.getAttribute( 'data-background-video' ),
 					backgroundVideoLoop = slide.hasAttribute( 'data-background-video-loop' ),
+<<<<<<< HEAD
 					backgroundVideoMuted = slide.hasAttribute( 'data-background-video-muted' );
+=======
+					backgroundVideoMuted = slide.hasAttribute( 'data-background-video-muted' ),
+					backgroundIframe = slide.getAttribute( 'data-background-iframe' );
+>>>>>>> master
 
 				// Images
 				if( backgroundImage ) {
@@ -3856,7 +3912,18 @@
 					iframe.setAttribute( 'mozallowfullscreen', '' );
 					iframe.setAttribute( 'webkitallowfullscreen', '' );
 
+<<<<<<< HEAD
 					iframe.setAttribute( 'data-src', backgroundIframe );
+=======
+					// Only load autoplaying content when the slide is shown to
+					// avoid having it play in the background
+					if( /autoplay=(1|true|yes)/gi.test( backgroundIframe ) ) {
+						iframe.setAttribute( 'data-src', backgroundIframe );
+					}
+					else {
+						iframe.setAttribute( 'src', backgroundIframe );
+					}
+>>>>>>> master
 
 					iframe.style.width  = '100%';
 					iframe.style.height = '100%';
@@ -3867,6 +3934,7 @@
 				}
 			}
 
+<<<<<<< HEAD
 			// Start loading preloadable iframes
 			var backgroundIframeElement = backgroundContent.querySelector( 'iframe[data-src]' );
 			if( backgroundIframeElement ) {
@@ -3880,6 +3948,8 @@
 
 			}
 
+=======
+>>>>>>> master
 		}
 
 	}
@@ -3899,11 +3969,14 @@
 		var background = getSlideBackground( slide );
 		if( background ) {
 			background.style.display = 'none';
+<<<<<<< HEAD
 
 			// Unload any background iframes
 			toArray( background.querySelectorAll( 'iframe[src]' ) ).forEach( function( element ) {
 				element.removeAttribute( 'src' );
 			} );
+=======
+>>>>>>> master
 		}
 
 		// Reset lazy-loaded media elements with src attributes
@@ -4468,6 +4541,7 @@
 	 */
 	function getSlides() {
 
+<<<<<<< HEAD
 		return toArray( dom.wrapper.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ) );
 
 	}
@@ -4506,6 +4580,9 @@
 	function hasVerticalSlides() {
 
 		return getVerticalSlides().length > 1;
+=======
+		return toArray( dom.wrapper.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ));
+>>>>>>> master
 
 	}
 
@@ -5192,8 +5269,13 @@
 
 		// Whitelist specific modified + keycode combinations
 		var prevSlideShortcut = event.shiftKey && event.keyCode === 32;
+<<<<<<< HEAD
 		var firstSlideShortcut = event.shiftKey && keyCode === 37;
 		var lastSlideShortcut = event.shiftKey && keyCode === 39;
+=======
+		var firstSlideShortcut = ( event.metaKey || event.ctrlKey ) && keyCode === 37;
+		var lastSlideShortcut = ( event.metaKey || event.ctrlKey ) && keyCode === 39;
+>>>>>>> master
 
 		// Prevent all other events when a modifier is pressed
 		var unusedModifier = 	!prevSlideShortcut && !firstSlideShortcut && !lastSlideShortcut &&
@@ -5220,10 +5302,13 @@
 			return false;
 		}
 
+<<<<<<< HEAD
 		// Use linear navigation if we're configured to OR if
 		// the presentation is one-dimensional
 		var useLinearMode = config.navigationMode === 'linear' || !hasHorizontalSlides() || !hasVerticalSlides();
 
+=======
+>>>>>>> master
 		var triggered = false;
 
 		// 1. User defined key bindings
@@ -5296,7 +5381,11 @@
 				if( firstSlideShortcut ) {
 					slide( 0 );
 				}
+<<<<<<< HEAD
 				else if( !isOverview() && useLinearMode ) {
+=======
+				else if( !isOverview() && config.navigationMode === 'linear' ) {
+>>>>>>> master
 					navigatePrev();
 				}
 				else {
@@ -5308,7 +5397,11 @@
 				if( lastSlideShortcut ) {
 					slide( Number.MAX_VALUE );
 				}
+<<<<<<< HEAD
 				else if( !isOverview() && useLinearMode ) {
+=======
+				else if( !isOverview() && config.navigationMode === 'linear' ) {
+>>>>>>> master
 					navigateNext();
 				}
 				else {
@@ -5317,7 +5410,11 @@
 			}
 			// K, UP
 			else if( keyCode === 75 || keyCode === 38 ) {
+<<<<<<< HEAD
 				if( !isOverview() && useLinearMode ) {
+=======
+				if( !isOverview() && config.navigationMode === 'linear' ) {
+>>>>>>> master
 					navigatePrev();
 				}
 				else {
@@ -5326,7 +5423,11 @@
 			}
 			// J, DOWN
 			else if( keyCode === 74 || keyCode === 40 ) {
+<<<<<<< HEAD
 				if( !isOverview() && useLinearMode ) {
+=======
+				if( !isOverview() && config.navigationMode === 'linear' ) {
+>>>>>>> master
 					navigateNext();
 				}
 				else {
@@ -5985,6 +6086,7 @@
 		// Returns the speaker notes string for a slide, or null
 		getSlideNotes: getSlideNotes,
 
+<<<<<<< HEAD
 		// Returns an array with all horizontal/vertical slides in the deck
 		getHorizontalSlides: getHorizontalSlides,
 		getVerticalSlides: getVerticalSlides,
@@ -5994,6 +6096,8 @@
 		hasHorizontalSlides: hasHorizontalSlides,
 		hasVerticalSlides: hasVerticalSlides,
 
+=======
+>>>>>>> master
 		// Returns the previous slide element, may be null
 		getPreviousSlide: function() {
 			return previousSlide;
