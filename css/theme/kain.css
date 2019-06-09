@@ -296,3 +296,10 @@ body {
     color: #191919; }
   .buildingBlocks li.frontEndDeveloper {
     font-size: 1.6em; }
+
+.golfRules .hljs-subst {
+  color: #222;
+  background-color: #ffea4c; }
+
+.golfRules .hljs-string {
+  color: #7fc8ff; }

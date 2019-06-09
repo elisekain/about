@@ -76,3 +76,14 @@ section.has-light-background {
     }
   }
 }
+
+.golfRules {
+  .hljs-subst {
+    color: #222;
+    background-color: $linkColor;
+  }
+
+  .hljs-string {
+    color: #7fc8ff;
+  }
+}
