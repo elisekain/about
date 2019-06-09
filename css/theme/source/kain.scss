@@ -48,3 +48,31 @@ section.has-light-background {
 // Theme template ------------------------------
 @import "../template/theme";
 // ---------------------------------------------
+
+/**
+ * 'Kain' custom slide CSS
+ */
+
+.buildingBlocks {
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+  li {
+    flex: 1;
+    text-align: center;
+    display: inline-block;
+    padding: 10% 1%;
+    margin: 1%;
+    border: solid 3px $linkColor;
+
+    &.filled {
+      background-color: $linkColor;
+      color: $backgroundColor;
+    }
+
+    &.frontEndDeveloper {
+      font-size: $heading2Size;
+    }
+  }
+}
