@@ -30,10 +30,158 @@
   <body>
     <div class="reveal">
       <div class="slides">
+        <!-- Intro -->
         <section>
           <h1>Elise Kain</h1>
         </section>
-        <section>Slide 2</section>
+        <section data-transition="concave">
+          <section data-transition="concave" class="buildingBlocks">
+            <ul>
+              <li class="fragment">Design</li>
+              <li class="fragment">Logic</li>
+              <li class="fragment">Code</li>
+            </ul>
+          </section>
+
+          <!-- Variables + String Interpolation -->
+          <section class="golfRules">
+            <p>9.6 Ball Lifted or Moved by Outside Influence</p>
+            <pre><code class="javascript" data-trim data-noescape>
+              const ruleNinePointSix = `If it is <mark>${knownOrVirtuallyCertain}</mark>
+              that an <mark>${outsideInfluence}</mark> (including another player in 
+              <mark>${strokePlay}</mark> or another ball) lifted or <mark>${moved}</mark> a player’s
+              ball:
+              
+              There is no penalty, and the ball must be <mark>${replaced}</mark> on its 
+              original spot (which if not known must be estimated) 
+              (see Rule 14.2).
+              
+              This applies whether or not the player’s ball has been found.`;
+              </code></pre>
+          </section>
+
+          <!-- Control Flow (if/else statements) -->
+          <section class="golfRules">
+            <p>15.1 Loose Impediments</p>
+            <pre><code class="javascript" data-trim data-noescape>
+              class Impediment {
+                constructor(isNatural, isGrowing) {
+                  this.isNatural = isNatural;
+                  this.isGrowing = isGrowing;
+                }
+
+                get isLooseImpediment() {
+                  return this.isNatural && !this.isGrowing;
+                }
+              }
+              const leaf = new Impediment(true, false);
+              leaf.isLooseImpediment // true
+            </code></pre>
+          </section>
+
+          <!-- Recursion + Closure -->
+          <section class="golfRules">
+            <p>14.3 Dropping Ball in Relief Area</p>
+            <pre><code class="javascript" data-trim data-noescape>
+                function invokeRule() {
+                  let ballDrops = 0;
+                  return function dropBallProcedure() {
+                    if (ballDrops >= 2) {
+                      return placeBall();
+                    } else if (droppedIncorrectly || deliberatelyDeflected) {
+                      dropBallProcedure();
+                    } else if (ballGoesOutsideReliefArea) {
+                      ballDrops++;
+                      dropBallProcedure();
+                    }
+                    return;
+                  };
+                };
+    
+                const dropBall = invokeRule();
+                dropBall();
+                </code></pre>
+          </section>
+        </section>
+
+        <section data-transition="concave" class="buildingBlocks">
+          <ul class="complete">
+            <li class="frontEndDeveloper">Front End Developer</li>
+          </ul>
+        </section>
+
+        <section>
+          <p>
+            How would you solve displaying tabular data on a medium to small
+            screen size?
+          </p>
+        </section>
+
+        <section>
+          <h2>Design Thinking</h2>
+          <img
+            src="./lib/images/designThinking.jpg"
+            alt="design thinking
+          graphic"
+          />
+          <cite
+            ><a
+              href="http://longevity3.stanford.edu/designchallenge/design-thinking-process/"
+              title="Stanford Design Thinking Process"
+              >Image from Stanford d.school</a
+            ></cite
+          >
+        </section>
+
+        <section>
+          <p>Base Design</p>
+          <ul>
+            <li class="fragment fade-in-then-semi-out">Table</li>
+            <li class="fragment fade-in-then-semi-out">Cards</li>
+            <li class="fragment fade-in-then-semi-out">Search</li>
+            <li class="fragment fade-in-then-semi-out">Export</li>
+          </ul>
+        </section>
+
+        <section>
+          <p>Strategies for Table Design</p>
+          <ul>
+            <li class="fragment fade-in-then-semi-out">Columns shrink</li>
+            <li class="fragment fade-in-then-semi-out">
+              Drop non-essential columns
+            </li>
+            <li class="fragment fade-in-then-semi-out">Horizontal scroll</li>
+            <li class="fragment fade-in-then-semi-out">
+              Frozen header row / identifying column
+            </li>
+            <li class="fragment fade-in-then-semi-out">
+              Collapse row into "card" structure
+            </li>
+            <li class="fragment fade-in-then-semi-out">
+              Display additional info in popup on hover / tap
+            </li>
+            <li class="fragment fade-in-then-semi-out">
+              Arrow dropdown for each row, reveal additional info
+            </li>
+            <li class="fragment fade-in-then-semi-out">
+              Make it easy to select a subset of data (records or columns)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p>Additional Discussion Points</p>
+          <ul>
+            <li class="fragment fade-in-then-semi-out">Context</li>
+            <li class="fragment fade-in-then-semi-out">Mental Model</li>
+            <li class="fragment fade-in-then-semi-out">Performance</li>
+            <li class="fragment fade-in-then-semi-out">Accessibility</li>
+            <li class="fragment fade-in-then-semi-out">
+              Touch Event Interactions
+            </li>
+            <li class="fragment fade-in-then-semi-out">Micro-animations</li>
+          </ul>
+        </section>
       </div>
     </div>
 

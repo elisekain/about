@@ -48,3 +48,39 @@ section.has-light-background {
 // Theme template ------------------------------
 @import "../template/theme";
 // ---------------------------------------------
+
+/**
+ * 'Kain' custom slide CSS
+ */
+
+.buildingBlocks {
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+  li {
+    flex: 1;
+    text-align: center;
+    display: inline-block;
+    padding: 10% 1%;
+    margin: 1%;
+    border: solid 3px $linkColor;
+
+    &.frontEndDeveloper {
+      font-size: $heading2Size;
+    }
+  }
+}
+
+cite {
+  font-size: 1rem;
+}
+
+.golfRules .hljs-subst {
+  color: #222;
+  background-color: #ffea4c;
+}
+
+.golfRules .hljs-string {
+  color: #7fc8ff;
+}
