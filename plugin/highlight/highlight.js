@@ -68,14 +68,6 @@ c:[{cN:"comment",b:/\(\*/,e:/\*\)/},e.ASM,e.QSM,e.CNM,{b:/\{/,e:/\}/,i:/:/}]}});
 	}
 
 	var RevealHighlight = {
-<<<<<<< HEAD
-
-		HIGHLIGHT_STEP_DELIMITER: '|',
-		HIGHLIGHT_LINE_DELIMITER: ',',
-		HIGHLIGHT_LINE_RANGE_DELIMITER: '-',
-
-=======
->>>>>>> master
 		init: function() {
 
 			// Read the plugin config options and provide fallbacks
@@ -111,70 +103,17 @@ c:[{cN:"comment",b:/\(\*/,e:/\*\)/},e.ASM,e.QSM,e.CNM,{b:/\{/,e:/\}/,i:/:/}]}});
 		 * Highlights a code block. If the <code> node has the
 		 * 'data-line-numbers' attribute we also generate slide
 		 * numbers.
-<<<<<<< HEAD
-		 *
-		 * If the block contains multiple line highlight steps,
-		 * we clone the block and create a fragment for each step.
-=======
->>>>>>> master
 		 */
 		highlightBlock: function( block ) {
 
 			hljs.highlightBlock( block );
 
-<<<<<<< HEAD
-			// Don't generate line numbers for empty code blocks
-			if( block.innerHTML.trim().length === 0 ) return;
-
-			if( block.hasAttribute( 'data-line-numbers' ) ) {
-				hljs.lineNumbersBlock( block, { singleLine: true } );
-
-				// If there is at least one highlight step, generate
-				// fragments
-				var highlightSteps = RevealHighlight.deserializeHighlightSteps( block.getAttribute( 'data-line-numbers' ) );
-				if( highlightSteps.length > 1 ) {
-
-					// If the original code block has a fragment-index,
-					// each clone should follow in an incremental sequence
-					var fragmentIndex = parseInt( block.getAttribute( 'data-fragment-index' ), 10 );
-					if( typeof fragmentIndex !== 'number' || isNaN( fragmentIndex ) ) {
-						fragmentIndex = null;
-					}
-
-					// Generate fragments for all steps except the original block
-					highlightSteps.slice(1).forEach( function( highlight ) {
-
-						var fragmentBlock = block.cloneNode( true );
-						fragmentBlock.setAttribute( 'data-line-numbers', RevealHighlight.serializeHighlightSteps( [ highlight ] ) );
-						fragmentBlock.classList.add( 'fragment' );
-						block.parentNode.appendChild( fragmentBlock );
-						RevealHighlight.highlightLines( fragmentBlock );
-
-						if( typeof fragmentIndex === 'number' ) {
-							fragmentBlock.setAttribute( 'data-fragment-index', fragmentIndex );
-							fragmentIndex += 1;
-						}
-						else {
-							fragmentBlock.removeAttribute( 'data-fragment-index' );
-						}
-
-					} );
-
-					block.removeAttribute( 'data-fragment-index' )
-					block.setAttribute( 'data-line-numbers', RevealHighlight.serializeHighlightSteps( [ highlightSteps[0] ] ) );
-
-				}
-
-				RevealHighlight.highlightLines( block );
-
-=======
 			if( block.hasAttribute( 'data-line-numbers' ) ) {
 				hljs.lineNumbersBlock( block, { singleLine: true } );
 
 				// hljs.lineNumbersBlock runs async code on the next cycle,
 				// so we need to do the same to execute after it's done
 				setTimeout( RevealHighlight.highlightLines.bind( this, block ), 0 );
->>>>>>> master
 			}
 
 		},
@@ -192,31 +131,6 @@ c:[{cN:"comment",b:/\(\*/,e:/\*\)/},e.ASM,e.QSM,e.CNM,{b:/\{/,e:/\}/,i:/:/}]}});
 		 */
 		highlightLines: function( block, linesToHighlight ) {
 
-<<<<<<< HEAD
-			var highlightSteps = RevealHighlight.deserializeHighlightSteps( linesToHighlight || block.getAttribute( 'data-line-numbers' ) );
-
-			if( highlightSteps.length ) {
-
-				highlightSteps[0].forEach( function( highlight ) {
-
-					var elementsToHighlight = [];
-
-					// Highlight a range
-					if( typeof highlight.end === 'number' ) {
-						elementsToHighlight = [].slice.call( block.querySelectorAll( 'table tr:nth-child(n+'+highlight.start+'):nth-child(-n+'+highlight.end+')' ) );
-					}
-					// Highlight a single line
-					else if( typeof highlight.start === 'number' ) {
-						elementsToHighlight = [].slice.call( block.querySelectorAll( 'table tr:nth-child('+highlight.start+')' ) );
-					}
-
-					if( elementsToHighlight.length ) {
-						elementsToHighlight.forEach( function( lineElement ) {
-							lineElement.classList.add( 'highlight-line' );
-						} );
-
-						block.classList.add( 'has-highlights' );
-=======
 			linesToHighlight = linesToHighlight || block.getAttribute( 'data-line-numbers' );
 
 			if( typeof linesToHighlight === 'string' && linesToHighlight !== '' ) {
@@ -238,105 +152,13 @@ c:[{cN:"comment",b:/\(\*/,e:/\*\)/},e.ASM,e.QSM,e.CNM,{b:/\{/,e:/\}/,i:/:/}]}});
 							lineElement.classList.add( 'highlight-line' );
 						} );
 
->>>>>>> master
 					}
 
 				} );
 
 			}
 
-<<<<<<< HEAD
-		},
-
-		/**
-		 * Parses and formats a user-defined string of line
-		 * numbers to highlight.
-		 *
-		 * @example
-		 * RevealHighlight.deserializeHighlightSteps( '1,2|3,5-10' )
-		 * // [
-		 * //   [ { start: 1 }, { start: 2 } ],
-		 * //   [ { start: 3 }, { start: 5, end: 10 } ]
-		 * // ]
-		 */
-		deserializeHighlightSteps: function( highlightSteps ) {
-
-			// Remove whitespace
-			highlightSteps = highlightSteps.replace( /\s/g, '' );
-
-			// Divide up our line number groups
-			highlightSteps = highlightSteps.split( RevealHighlight.HIGHLIGHT_STEP_DELIMITER );
-
-			return highlightSteps.map( function( highlights ) {
-
-				return highlights.split( RevealHighlight.HIGHLIGHT_LINE_DELIMITER ).map( function( highlight ) {
-
-					// Parse valid line numbers
-					if( /^[\d-]+$/.test( highlight ) ) {
-
-						highlight = highlight.split( RevealHighlight.HIGHLIGHT_LINE_RANGE_DELIMITER );
-
-						var lineStart = parseInt( highlight[0], 10 ),
-							lineEnd = parseInt( highlight[1], 10 );
-
-						if( isNaN( lineEnd ) ) {
-							return {
-								start: lineStart
-							};
-						}
-						else {
-							return {
-								start: lineStart,
-								end: lineEnd
-							};
-						}
-
-					}
-					// If no line numbers are provided, no code will be highlighted
-					else {
-
-						return {};
-
-					}
-
-				} );
-
-			} );
-
-		},
-
-		/**
-		 * Serializes parsed line number data into a string so
-		 * that we can store it in the DOM.
-		 */
-		serializeHighlightSteps: function( highlightSteps ) {
-
-			return highlightSteps.map( function( highlights ) {
-
-				return highlights.map( function( highlight ) {
-
-					// Line range
-					if( typeof highlight.end === 'number' ) {
-						return highlight.start + RevealHighlight.HIGHLIGHT_LINE_RANGE_DELIMITER + highlight.end;
-					}
-					// Single line
-					else if( typeof highlight.start === 'number' ) {
-						return highlight.start;
-					}
-					// All lines
-					else {
-						return '';
-					}
-
-				} ).join( RevealHighlight.HIGHLIGHT_LINE_DELIMITER );
-
-			} ).join( RevealHighlight.HIGHLIGHT_STEP_DELIMITER );
-
 		}
-
-=======
-		}
->>>>>>> master
 	}
 
 	Reveal.registerPlugin( 'highlight', RevealHighlight );
