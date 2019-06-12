@@ -66,24 +66,21 @@ section.has-light-background {
     margin: 1%;
     border: solid 3px $linkColor;
 
-    &.filled {
-      background-color: $linkColor;
-      color: $backgroundColor;
-    }
-
     &.frontEndDeveloper {
       font-size: $heading2Size;
     }
   }
 }
 
-.golfRules {
-  .hljs-subst {
-    color: #222;
-    background-color: $linkColor;
-  }
+cite {
+  font-size: 1rem;
+}
 
-  .hljs-string {
-    color: #7fc8ff;
-  }
+.golfRules .hljs-subst {
+  color: #222;
+  background-color: #ffea4c;
+}
+
+.golfRules .hljs-string {
+  color: #7fc8ff;
 }

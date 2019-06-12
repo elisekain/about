@@ -34,90 +34,34 @@
         <section>
           <h1>Elise Kain</h1>
         </section>
-        <section class="buildingBlocks">
-          <ul>
-            <li class="fragment">Design</li>
-            <li class="fragment">Logic</li>
-            <li class="fragment">Code</li>
-          </ul>
-        </section>
+        <section data-transition="concave">
+          <section data-transition="concave" class="buildingBlocks">
+            <ul>
+              <li class="fragment">Design</li>
+              <li class="fragment">Logic</li>
+              <li class="fragment">Code</li>
+            </ul>
+          </section>
 
-        <!-- Design -->
-        <section><h2>Design</h2></section>
-        <section class="buildingBlocks">
-          <ul>
-            <li class="filled">Design</li>
-            <li>Logic</li>
-            <li>Code</li>
-          </ul>
-        </section>
-
-        <!-- Logic -->
-        <section><h2>Logic</h2></section>
-
-        <!-- Variables + String Interpolation -->
-        <section class="golfRules">
-          <section>
+          <!-- Variables + String Interpolation -->
+          <section class="golfRules">
             <p>9.6 Ball Lifted or Moved by Outside Influence</p>
             <pre><code class="javascript" data-trim data-noescape>
-            const ruleNinePointSix = `If it is <mark>${knownOrVirtuallyCertain}</mark>
-            that an <mark>${outsideInfluence}</mark> (including another player in 
-            <mark>${strokePlay}</mark> or another ball) lifted or <mark>${moved}</mark> a player’s
-            ball:
-            
-            There is no penalty, and the ball must be <mark>${replaced}</mark> on its 
-            original spot (which if not known must be estimated) 
-            (see Rule 14.2).
-            
-            This applies whether or not the player’s ball has been found.`;
-            </code></pre>
-          </section>
-          <section>
-            <p>Known or virtually certain</p>
-            <pre><code class="javascript" data-trim data-noescape>
-              const knownOrVirtuallyCertain = `The standard for deciding
-              what happened to a player’s ball – for example, whether 
-              the ball came to rest in a <mark>${penaltyArea}</mark>, whether it <mark>${moved}</mark> 
-              or what caused it to move.
-             
-              Known or virtually certain means more than just possible 
-              or probable. It means that either:
+              const ruleNinePointSix = `If it is <mark>${knownOrVirtuallyCertain}</mark>
+              that an <mark>${outsideInfluence}</mark> (including another player in 
+              <mark>${strokePlay}</mark> or another ball) lifted or <mark>${moved}</mark> a player’s
+              ball:
               
-              There is conclusive evidence that the event in question 
-              happened to the player’s ball, such as when the player or 
-              other witnesses saw it happen, or
+              There is no penalty, and the ball must be <mark>${replaced}</mark> on its 
+              original spot (which if not known must be estimated) 
+              (see Rule 14.2).
               
-              Although there is a very small degree of doubt, all 
-              reasonably available information shows that it is at 
-              least 95% likely that the event in question happened.
-              
-              "All reasonably available information" includes all 
-              information the player knows and all other information he 
-              or she can get with reasonable effort and without 
-              unreasonable delay.`;
-            </code></pre>
-          </section>
-          <section>
-            <p>Moved</p>
-            <pre><code class="javascript" data-trim data-noescape>
-                const moved = `When a ball at rest has left its original 
-                spot and come to rest on any other spot, and this can be 
-                seen by the naked eye (whether or not anyone actually sees
-                it do so).
-                
-                This applies whether the ball has gone up, down or 
-                horizontally in any direction away from its original spot.
-                
-                If the ball only wobbles (sometimes referred to as 
-                oscillating) and stays on or returns to its original spot, 
-                the ball has not moved.`;
+              This applies whether or not the player’s ball has been found.`;
               </code></pre>
           </section>
-        </section>
 
-        <!-- Control Flow (if/else statements) -->
-        <section class="golfRules">
-          <section>
+          <!-- Control Flow (if/else statements) -->
+          <section class="golfRules">
             <p>15.1 Loose Impediments</p>
             <pre><code class="javascript" data-trim data-noescape>
               class Impediment {
@@ -134,98 +78,108 @@
               leaf.isLooseImpediment // true
             </code></pre>
           </section>
-        </section>
 
-        <!-- Recursion + Closure -->
-        <section class="golfRules">
-          <section>
+          <!-- Recursion + Closure -->
+          <section class="golfRules">
             <p>14.3 Dropping Ball in Relief Area</p>
             <pre><code class="javascript" data-trim data-noescape>
-            function invokeRule() {
-              let ballDrops = 0;
-              return function dropBallProcedure() {
-                if (ballDrops >= 2) {
-                  return placeBall();
-                } else if (droppedIncorrectly || deliberatelyDeflected) {
-                  dropBallProcedure();
-                } else if (ballGoesOutsideReliefArea) {
-                  ballDrops++;
-                  dropBallProcedure();
-                }
-                return;
-              };
-            };
-
-            const dropBall = invokeRule();
-            dropBall();
-            </code></pre>
-          </section>
-          <section>
-            <p>14.3 Dropping Ball in Relief Area</p>
-            <pre><code class="javascript" data-trim data-noescape data-line-numbers="2,4,9">
-            function invokeRule() {
-              let ballDrops = 0;
-              return function dropBallProcedure() {
-                if (ballDrops >= 2) {
-                  return placeBall();
-                } else if (droppedIncorrectly || deliberatelyDeflected) {
-                  dropBallProcedure();
-                } else if (ballGoesOutsideReliefArea) {
-                  ballDrops++;
-                  dropBallProcedure();
-                }
-                return;
-              };
-            };
-
-            const dropBall = invokeRule();
-            dropBall();
-            </code></pre>
-          </section>
-          <section>
-            <p>14.3 Dropping Ball in Relief Area</p>
-            <pre><code class="javascript" data-trim data-noescape data-line-numbers="7,10">
-            function invokeRule() {
-              let ballDrops = 0;
-              return function dropBallProcedure() {
-                if (ballDrops >= 2) {
-                  return placeBall();
-                } else if (droppedIncorrectly || deliberatelyDeflected) {
-                  dropBallProcedure();
-                } else if (ballGoesOutsideReliefArea) {
-                  ballDrops++;
-                  dropBallProcedure();
-                }
-                return;
-              };
-            };
-
-            const dropBall = invokeRule();
-            dropBall();
-            </code></pre>
+                function invokeRule() {
+                  let ballDrops = 0;
+                  return function dropBallProcedure() {
+                    if (ballDrops >= 2) {
+                      return placeBall();
+                    } else if (droppedIncorrectly || deliberatelyDeflected) {
+                      dropBallProcedure();
+                    } else if (ballGoesOutsideReliefArea) {
+                      ballDrops++;
+                      dropBallProcedure();
+                    }
+                    return;
+                  };
+                };
+    
+                const dropBall = invokeRule();
+                dropBall();
+                </code></pre>
           </section>
         </section>
 
-        <section class="buildingBlocks">
-          <ul>
-            <li class="filled">Design</li>
-            <li class="filled">Logic</li>
-            <li>Code</li>
-          </ul>
-        </section>
-
-        <!-- Code -->
-        <section><h2>Code</h2></section>
-        <section data-transition="slide-in fade-out" class="buildingBlocks">
-          <ul>
-            <li class="filled">Design</li>
-            <li class="filled">Logic</li>
-            <li class="filled">Code</li>
-          </ul>
-        </section>
-        <section data-transition="fade-in" class="buildingBlocks">
+        <section data-transition="concave" class="buildingBlocks">
           <ul class="complete">
-            <li class="filled frontEndDeveloper">Front End Developer</li>
+            <li class="frontEndDeveloper">Front End Developer</li>
+          </ul>
+        </section>
+
+        <section>
+          <p>
+            How would you solve displaying tabular data on a medium to small
+            screen size?
+          </p>
+        </section>
+
+        <section>
+          <h2>Design Thinking</h2>
+          <img
+            src="./lib/images/designThinking.jpg"
+            alt="design thinking
+          graphic"
+          />
+          <cite
+            ><a
+              href="http://longevity3.stanford.edu/designchallenge/design-thinking-process/"
+              title="Stanford Design Thinking Process"
+              >Image from Stanford d.school</a
+            ></cite
+          >
+        </section>
+
+        <section>
+          <p>Base Design</p>
+          <ul>
+            <li class="fragment fade-in-then-semi-out">Table</li>
+            <li class="fragment fade-in-then-semi-out">Cards</li>
+            <li class="fragment fade-in-then-semi-out">Search</li>
+            <li class="fragment fade-in-then-semi-out">Export</li>
+          </ul>
+        </section>
+
+        <section>
+          <p>Strategies for Table Design</p>
+          <ul>
+            <li class="fragment fade-in-then-semi-out">Columns shrink</li>
+            <li class="fragment fade-in-then-semi-out">
+              Drop non-essential columns
+            </li>
+            <li class="fragment fade-in-then-semi-out">Horizontal scroll</li>
+            <li class="fragment fade-in-then-semi-out">
+              Frozen header row / identifying column
+            </li>
+            <li class="fragment fade-in-then-semi-out">
+              Collapse row into "card" structure
+            </li>
+            <li class="fragment fade-in-then-semi-out">
+              Display additional info in popup on hover / tap
+            </li>
+            <li class="fragment fade-in-then-semi-out">
+              Arrow dropdown for each row, reveal additional info
+            </li>
+            <li class="fragment fade-in-then-semi-out">
+              Make it easy to select a subset of data (records or columns)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p>Additional Discussion Points</p>
+          <ul>
+            <li class="fragment fade-in-then-semi-out">Context</li>
+            <li class="fragment fade-in-then-semi-out">Mental Model</li>
+            <li class="fragment fade-in-then-semi-out">Performance</li>
+            <li class="fragment fade-in-then-semi-out">Accessibility</li>
+            <li class="fragment fade-in-then-semi-out">
+              Touch Event Interactions
+            </li>
+            <li class="fragment fade-in-then-semi-out">Micro-animations</li>
           </ul>
         </section>
       </div>
